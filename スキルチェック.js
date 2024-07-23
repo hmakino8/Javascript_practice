@@ -111,7 +111,7 @@ function func () {
   return ('this is function')
 }
 
-arrowFunc = () => {
+const arrowFunc = () => {
   return ('this is arrow function')
 }
 
@@ -378,9 +378,9 @@ console.log('\n----------------------------------------\n')
   // arr = arr2 => エラー
   // a = 2 => エラー
   // arr = arr2 => エラー
+  // arr3[0] = 'a' => エラー
 
   arr[0] = 'b' // ok
-  arr3[0] = 'a' // エラーは出ないが、変更されない。
 
   console.log(arr)
   console.log(arr3)
@@ -388,8 +388,148 @@ console.log('\n----------------------------------------\n')
 
 console.log('\n----------------------------------------\n')
 
-{
-  const arr = ['a']
+console.log(arr.shift()) // 要素が戻る
+console.log(arr)
+console.log(arr.unshift('a')) // 要素数が戻る
+console.log(arr)
 
+console.log('\n----------------------------------------\n')
 
+console.log(arr.slice(0, 2))
+console.log(arr.splice(1, 2, 'x', 'y'))
+console.log(arr)
+
+console.log('\n----------------------------------------\n')
+
+arr.forEach(c => console.log(c))
+console.log(arr.map(c => c + 'a'))
+
+console.log('\n----------------------------------------\n')
+
+arr[0] += 'a'
+console.log(arr.filter(c => c.length >= 2))
+console.log(arr.find(c => c > 'x'))
+console.log(arr.findIndex(c => c > 'x'))
+
+console.log('\n----------------------------------------\n')
+
+console.log(['b', 'c', 'a'].sort())
+console.log(['b', 'c', 'a'].indexOf('a'))
+console.log(['b', 'c', 'a'].includes('d'))
+console.log(['a', 'b', 'c'].concat(['d', 'e', 'f']))
+console.log(['a', 'b', 'c'].join())
+console.log(['a', 'b', 'c'].join(''))
+console.log(['a', 'b', 'c'].join('/'))
+console.log("a/b/c".split('/'))
+console.log("Hello World".substr(6, 5))
+console.log("Hello World".replace("Hello", "こんにちは"))
+console.log("Hello World".replaceAll('l', "こんにちは"))
+
+console.log('\n----------------------------------------\n')
+
+console.log(0n == true)
+console.log("" == true)
+console.log(NaN == true)
+
+console.log('\n----------------------------------------\n')
+
+const str = "hmakino"
+console.log(`こんにちは${str}`)
+
+console.log('\n----------------------------------------\n')
+
+const message = () => {
+  console.log('作業中')
 }
+
+const log = func => {
+  console.log("処理開始")
+  func()
+  console.log("処理終了")
+}
+
+log(message)
+
+console.log('\n----------------------------------------\n')
+
+const a = 1
+const b = 2
+console.log((a === b ? '等しい' : '等しくない'))
+
+console.log('\n----------------------------------------\n')
+
+{
+  let a, b, c
+  [a, b, ...c] = [1, 2, 3, 4, 5]
+  console.log(c)
+}
+
+console.log('\n----------------------------------------\n')
+
+import { greetingFunc } from './tmp.js'
+greetingFunc()
+
+console.log('\n----------------------------------------\n')
+
+const timeoutId = setTimeout(() => {
+  console.log("Hello")
+}, 3000)
+
+const timeoutId2 = setInterval(() => {
+  console.log("Hello")
+}, 3000)
+
+clearTimeout(timeoutId)
+clearInterval(timeoutId2)
+
+console.log('\n----------------------------------------\n')
+
+import fetch from 'node-fetch'
+
+const url = 'https://jsonplaceholder.typicode.com/todos/'
+const url2 = 'https://github.com/hmakino8'
+
+//fetch(url)
+//  .then(response => {
+//    if (!response.ok) {
+//      throw new Error(`HTTP error! status: ${response.status}`)
+//    }
+//    const contentType = response.headers.get('content-type')
+//    if (!contentType || !contentType.includes('application/json')) {
+//      throw new Error('Expected JSON response')
+//    }
+//    return response.json()
+//  })
+//  .then(data => { console.log(data) })
+//  .catch(e => { console.error('Error', e)})
+
+//fetch(url2)
+//  .then(response => response.text())
+//  .then(text => {
+//    console.log('Response text:', text); // レスポンス内容を確認
+//    try {
+//      const data = JSON.parse(text);
+//      console.log(data);
+//    } catch (error) {
+//      console.error('Failed to parse JSON:', error);
+//      console.error('Response text was:', text); // エラーレスポンスをログに出力
+//    }
+//  })
+//  .catch(error => {
+//    console.error('Error:', error);
+//  });
+
+console.log('\n----------------------------------------\n')
+
+const fetchData = async () => {
+  try {
+    const res = await fetch(url)
+    console.log(res)
+  } catch(e) {
+    console.error(e)
+  } finally {
+    console.log('処理が終了')
+  }
+}
+
+fetchData()
