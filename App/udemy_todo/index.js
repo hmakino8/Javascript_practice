@@ -1,7 +1,14 @@
 const onClickAdd = () => {
+  // テキストボックスの値を取得し、初期化する
   const inputText = document.getElementById("add-text").value;
   document.getElementById("add-text").value = "";
 
+  // 未完成リストに追加
+  createIncompleteTodo(inputText);
+}
+
+// 渡された引数を未完了のTODOを作成する関数
+const createIncompleteTodo = (todo) => {
   // liタグ生成
   const li = document.createElement("li"); // <li></li>
 
@@ -12,7 +19,7 @@ const onClickAdd = () => {
   // pタグ生成
   const p = document.createElement("p"); // <p></p>
   p.className = "todo-item"; // <p class="todo-item"></p>
-  p.innerText = inputText; // <p class="todo-item">{inputText}</p>
+  p.innerText = todo; // <p class="todo-item">{todo}</p>
 
   // button(完了)タグ生成
   const completeButton = document.createElement("button");
@@ -26,7 +33,7 @@ const onClickAdd = () => {
     // 戻すボタンを生成してdivタグは以下に設定
     const backButton = document.createElement("button");
     backButton.innerText = "戻す";
-    moveTarget.firstElementChild.appendChild(backButton)
+    moveTarget.firstElementChild.appendChild(backButton);
 
     // 完了リストに移動
     document.getElementById("complete-list").appendChild(moveTarget);
@@ -49,8 +56,6 @@ const onClickAdd = () => {
 
   // 未完成リストに追加
   document.getElementById("incomplete-list").appendChild(li);
-
-  console.log(li);
 }
 
 document.getElementById("add-button").addEventListener("click", onClickAdd);
