@@ -33,6 +33,12 @@ const createIncompleteTodo = (todo) => {
     // 戻すボタンを生成してdivタグは以下に設定
     const backButton = document.createElement("button");
     backButton.innerText = "戻す";
+    backButton.addEventListener("click", () => {
+      // TODOの内容を取得し、未完了リストに追加
+      const todoText = backButton.previousElementSibling.innerText;
+      createIncompleteTodo(todoText);
+      backButton.closest("li").remove();
+    })
     moveTarget.firstElementChild.appendChild(backButton);
 
     // 完了リストに移動
