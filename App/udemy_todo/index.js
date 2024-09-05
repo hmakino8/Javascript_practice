@@ -1,10 +1,42 @@
+const handleError = (inputText) => {
+  const MAX_TODO = 10;
+
+  const validateInput = (input) => {
+    return input.trim() !== '';
+  }
+
+  const getTotalTodos = () => {
+    const completeArea = document.querySelectorAll('.complete-area p');
+    const incompleteArea = document.querySelectorAll('.incomplete-area p');
+    return completeArea.length + incompleteArea.length;
+  }
+
+  if (!validateInput(inputText)) {
+    return { success: false, message: 'TODOを入力してください'};
+  }
+
+  const totalTodos = getTotalTodos();
+  if (totalTodos >  MAX_TODO + 1) {
+    return { success: false, message: 'TODOリストに追加できるのは10個までです。項目を削除してください。'}
+  }
+
+  return { success: true };
+}
+
 const onClickAdd = () => {
   // テキストボックスの値を取得し、初期化する
   const inputText = document.getElementById("add-text").value;
+  const result = handleError(inputText);
+
   document.getElementById("add-text").value = "";
 
-  // 未完成リストに追加
-  createIncompleteTodo(inputText);
+  // エラーハンドリング
+  if (!result.success) {
+    alert(result.message)
+  } else {
+    // 未完成リストに追加
+    createIncompleteTodo(inputText);
+  }
 }
 
 // 渡された引数を未完了のTODOを作成する関数
